@@ -16,8 +16,12 @@ Sugerimos o uso das seguintes ferramentas acessíveis: [FullCalendar](https://fu
 
 **Print da tela com a implementação**
 
-<< Coloque aqui uma breve explicação da implementação feita nessa etapa>>
+<< Nesta etapa foram implementadas duas melhorias principais no sistema:
 
-<<  COLOQUE A IMAGEM TELA 1 AQUI >>
+A nova página noticias.html, responsável por listar todas as notícias cadastradas, incluindo filtros e busca dinâmica para facilitar a navegação.
 
-<<  COLOQUE A IMAGEM TELA 2 AQUI >>
+O gráfico de categorias, criado com Chart.js, que exibe automaticamente a quantidade de notícias por categoria, sendo atualizado conforme os dados do servidor. >>
+
+<<  ![TESTE 1](public/assets/img/teste1.png) >>
+
+<<  ![TESTE 2](public/assets/img/teste2.png) >>

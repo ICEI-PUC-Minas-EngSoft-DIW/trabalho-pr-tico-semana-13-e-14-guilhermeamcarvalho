@@ -142,6 +142,31 @@
         "preparação"
       ],
       "destaque": false
+    },
+    {
+      "id": "c2e8",
+      "titulo": "Teste Criar Noticia",
+      "descricao": "Notícia criada eConteúdo completo da notícia de teste: Gol aos 90'.\"m teste automatizado - criação.",
+      "conteudo": "Conteúdo completo da notícia de teste: Gol aos 90'.\"",
+      "categoria": "Campeonatos",
+      "autor": "Guilherme Augusto",
+      "data": "2025-11-16",
+      "tags": [
+        "teste",
+        "gol"
+      ],
+      "destaque": false
+    },
+    {
+      "id": "b196",
+      "titulo": "Goleiro sofre lesão e deve ficar fora por 6 semanas",
+      "descricao": "O jogador sentiu o tornozelo durante treino e já iniciou fisioterapia intensiva.",
+      "conteudo": "O jogador sentiu o tornozelo durante treino e já iniciou fisioterapia intensiva.",
+      "categoria": "Lesões",
+      "autor": "Fernanda Torres",
+      "data": "2025-11-16",
+      "tags": [],
+      "destaque": false
     }
   ]
 }

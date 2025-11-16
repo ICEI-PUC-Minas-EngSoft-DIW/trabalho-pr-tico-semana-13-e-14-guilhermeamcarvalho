@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notícias - Futebol News</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Header (mesmo padrão) -->
+  <header>
+    <div class="container">
+      <div class="d-flex flex-column justify-content-center align-items-center py-2 py-md-3">
+        <a href="index.html" class="inicio text-center mb-2 mb-md-0 d-flex align-items-center">
+          <img src="assets/img/logo.jpg" alt="Futebol News" class="logo me-2">
+          <h1 class="h3 h1-md mb-0">Futebol News</h1>
+        </a>
+        <nav class="caixa-menuprincipal">
+          <ul class="d-flex flex-wrap justify-content-center list-unstyled mb-0 gap-2 gap-md-3">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="noticias.html" class="active">Notícias</a></li>
+            <li><a href="campeonatos.html">Campeonatos</a></li>
+            <li><a href="times.html">Times</a></li>
+            <li><a href="cadastro_noticias.html">Gerenciar Notícias</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="container my-4">
+    <div class="row">
+      <!-- Filtros / Painel lateral -->
+      <aside class="col-lg-4 mb-4">
+        <div class="principal p-3">
+          <h2 class="h5 text-success mb-3">Filtrar Notícias</h2>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Categoria</label>
+            <select id="filtro_categoria_page" class="form-select">
+              <option value="">Todas as categorias</option>
+              <option value="Em Alta">Em Alta</option>
+              <option value="Notícias Recentes">Notícias Recentes</option>
+              <option value="Transferências">Transferências</option>
+              <option value="Lesões">Lesões</option>
+              <option value="Campeonatos">Campeonatos</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Buscar (título / descrição / conteúdo)</label>
+            <div class="input-group">
+              <input id="filtro_busca_page" type="text" class="form-control" placeholder="Digite sua busca...">
+              <button id="btnBuscarPage" class="btn btn-outline-success" type="button"><i
+                  class="fas fa-search"></i></button>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Tag</label>
+            <input id="filtro_tag_page" type="text" class="form-control" placeholder="ex: futebol, gol">
+            <div class="form-text small">Filtra notícias que contenham a tag (separadas por vírgula no cadastro).</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Destaque</label>
+            <select id="filtro_destaque_page" class="form-select">
+              <option value="">Todos</option>
+              <option value="true">Apenas destaque</option>
+              <option value="false">Sem destaque</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Intervalo de datas</label>
+            <div class="d-flex gap-2">
+              <input id="filtro_data_inicio_page" type="date" class="form-control">
+              <input id="filtro_data_fim_page" type="date" class="form-control">
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 justify-content-between">
+            <button id="btnAplicarFiltros" class="btn btn-success">Aplicar filtros</button>
+            <button id="btnLimparFiltros" class="btn btn-outline-secondary">Limpar</button>
+          </div>
+        </div>
+
+        <div class="mt-3 principal p-3">
+          <h5 class="h6 text-success">Resumo</h5>
+          <p class="small text-muted">Resultados encontrados: <span id="contador_resultados">0</span></p>
+          <div id="resumoCategorias" class="small text-muted"></div>
+        </div>
+      </aside>
+
+      <!-- Lista de notícias -->
+      <section class="col-lg-8">
+        <div class="principal p-3 mb-3">
+          <h2 class="h4 text-success mb-0">Todas as Notícias</h2>
+          <p class="text-muted small mb-0">Navegue, busque e filtre as notícias publicadas no site.</p>
+        </div>
+
+        <div id="listaNoticiasPage" class="row g-3">
+          <!-- Cards serão injetados aqui -->
+          <div class="col-12 text-center py-4" id="loadingNoticiasPage">
+            <div class="spinner-border text-success" role="status"><span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="text-muted mt-2">Carregando notícias...</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer (mesmo padrão) -->
+  <footer>
+    <div class="container">
+      <div class="d-flex flex-column justify-content-center align-items-center py-3 py-md-4 text-center">
+        <div class="informacoes-aluno mb-3">
+          <h5 class="mb-3">Informações do(a) Aluno(a)</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="info-item">
+                <strong>Sobre</strong>
+                <p class="mb-1 small">Sou um estudante apaixonado por tecnologia e desenvolvimento de software, sempre
+                  buscando aprender novas tecnologias e criar soluções inovadoras.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info-item">
+                <p class="mb-1 small"><strong>Aluno:</strong> Guilherme Augusto Martins de Carvalho</p>
+                <p class="mb-1 small"><strong>Curso:</strong> Engenharia de Software</p>
+                <p class="mb-1 small"><strong>Turma:</strong> Noite</p>
+                <div class="redes-sociais d-flex justify-content-center gap-3 mt-2">
+                  <a href="https://instagram.com/_guimartinsc" target="_blank" class="rede-social"><i
+                      class="fab fa-instagram fa-lg"></i></a>
+                  <a href="https://www.linkedin.com/in/guilherme-augusto-martins-de-carvalho-28010820a/" target="_blank"
+                    class="rede-social"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="copyright mb-2">
+          <p class="texto mb-0 small">© 2025 Futebol News - Projeto acadêmico</p>
+        </div>
+
+        <nav class="caixa-rodape">
+          <ul class="d-flex flex-wrap justify-content-center list-unstyled mb-0 gap-2 gap-md-3">
+            <li><a href="privacidade.html" class="small">Privacidade</a></li>
+            <li><a href="termos.html" class="small">Termos</a></li>
+            <li><a href="contatos.html" class="small">Contatos</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: Bootstrap e seu app.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/scripts/app.js"></script>
+
+  <!-- Script específico desta página: define inicializarPaginaNoticias() e lógica dos filtros -->
+</body>
+
+</html>

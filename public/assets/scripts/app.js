@@ -72,7 +72,7 @@ function isValidImageSize(file) {
 function showImagePreview(input, previewId) {
   const file = input.files[0];
   const preview = document.getElementById(previewId);
-  
+
   if (!file) {
     preview.style.display = 'none';
     return;
@@ -93,7 +93,7 @@ function showImagePreview(input, previewId) {
   }
 
   const reader = new FileReader();
-  reader.onload = function(e) {
+  reader.onload = function (e) {
     preview.innerHTML = `
       <div class="image-preview-container">
         <img src="${e.target.result}" class="img-fluid rounded" style="max-height: 200px;">
@@ -106,7 +106,7 @@ function showImagePreview(input, previewId) {
 
     // Adicionar evento para remover imagem
     const removeBtn = preview.querySelector('.remove-image');
-    removeBtn.addEventListener('click', function() {
+    removeBtn.addEventListener('click', function () {
       input.value = '';
       preview.style.display = 'none';
     });
@@ -153,7 +153,7 @@ async function criarNoticia(noticiaData) {
       },
       body: JSON.stringify(noticiaData)
     });
-    
+
     if (!response.ok) throw new Error('Erro ao criar notícia');
     return await response.json();
   } catch (error) {
@@ -172,7 +172,7 @@ async function atualizarNoticia(id, noticiaData) {
       },
       body: JSON.stringify(noticiaData)
     });
-    
+
     if (!response.ok) throw new Error('Erro ao atualizar notícia');
     return await response.json();
   } catch (error) {
@@ -187,7 +187,7 @@ async function excluirNoticia(id) {
     const response = await fetch(`${API_URL}/noticias/${id}`, {
       method: 'DELETE'
     });
-    
+
     if (!response.ok) throw new Error('Erro ao excluir notícia');
     return true;
   } catch (error) {
@@ -243,7 +243,7 @@ function createCard(noticia) {
 async function montarCardsIndex() {
   const emAltaContainer = qs("#emAltaContainer");
   const recentesContainer = qs("#recentesContainer");
-  
+
   if (!emAltaContainer || !recentesContainer) return;
 
   emAltaContainer.innerHTML = '<div class="col-12 text-center"><div class="spinner-border text-success" role="status"><span class="visually-hidden">Carregando...</span></div></div>';
@@ -251,7 +251,7 @@ async function montarCardsIndex() {
 
   try {
     const noticias = await carregarNoticias();
-    
+
     if (noticias.length === 0) {
       emAltaContainer.innerHTML = '<div class="col-12 text-center text-muted">Nenhuma notícia encontrada</div>';
       recentesContainer.innerHTML = '<div class="col-12 text-center text-muted">Nenhuma notícia encontrada</div>';
@@ -268,7 +268,7 @@ async function montarCardsIndex() {
     emAlta.forEach(n => {
       emAltaContainer.appendChild(createCard(n));
     });
-    
+
     recentes.forEach(n => {
       recentesContainer.appendChild(createCard(n));
     });
@@ -342,7 +342,7 @@ async function montarCarousel() {
 async function carregarDetalhe() {
   const params = new URLSearchParams(location.search);
   const id = Number(params.get("id"));
-  
+
   const pageTitle = qs("#pageTitle");
   const mainImage = qs("#mainImage");
   const infoData = qs("#infoData");
@@ -365,7 +365,7 @@ async function carregarDetalhe() {
 
     if (pageTitle) {
       pageTitle.textContent = noticia.titulo || "Detalhe do Item";
-      pageTitle.className = "titulo-destaque"; 
+      pageTitle.className = "titulo-destaque";
     }
 
     // Usar imagem base64 se disponível, senão usar URL padrão
@@ -383,7 +383,7 @@ async function carregarDetalhe() {
     // Galeria de fotos
     galeriaContainer.innerHTML = "";
     let fotos = [];
-    
+
     if (noticia.galeriaBase64 && Array.isArray(noticia.galeriaBase64) && noticia.galeriaBase64.length > 0) {
       fotos = noticia.galeriaBase64;
     } else if (noticia.galeria && Array.isArray(noticia.galeria) && noticia.galeria.length > 0) {
@@ -393,7 +393,7 @@ async function carregarDetalhe() {
       const todasNoticias = await carregarNoticias();
       fotos = todasNoticias.slice(0, 6).map(n => n.imagemBase64 || n.imagem).filter(Boolean);
     }
-    
+
     fotos.forEach((src, idx) => {
       const col = document.createElement("div");
       col.className = "card";
@@ -402,7 +402,7 @@ async function carregarDetalhe() {
       `;
       galeriaContainer.appendChild(col);
     });
-    
+
     if (conteudoFull) conteudoFull.innerHTML = noticia.conteudo || "";
 
   } catch (error) {
@@ -417,37 +417,37 @@ async function carregarDetalhe() {
 
 // Configurar data atual no formulário
 function configurarDataAtual() {
-    const dataInput = document.getElementById('data');
-    if (dataInput) {
-        const hoje = new Date().toISOString().split('T')[0];
-        dataInput.value = hoje;
-        dataInput.max = hoje; // Não permite datas futuras
-    }
+  const dataInput = document.getElementById('data');
+  if (dataInput) {
+    const hoje = new Date().toISOString().split('T')[0];
+    dataInput.value = hoje;
+    dataInput.max = hoje; // Não permite datas futuras
+  }
 }
 
 // Contador de caracteres para descrição
 function inicializarContadorDescricao() {
-    const descricaoTextarea = document.getElementById('descricao');
-    const contadorDescricao = document.getElementById('contadorDescricao');
-    
-    if (descricaoTextarea && contadorDescricao) {
-        descricaoTextarea.addEventListener('input', function() {
-            contadorDescricao.textContent = this.value.length;
-        });
-    }
+  const descricaoTextarea = document.getElementById('descricao');
+  const contadorDescricao = document.getElementById('contadorDescricao');
+
+  if (descricaoTextarea && contadorDescricao) {
+    descricaoTextarea.addEventListener('input', function () {
+      contadorDescricao.textContent = this.value.length;
+    });
+  }
 }
 
 // Gerenciamento da galeria de imagens (agora com upload de arquivos)
 function inicializarGaleriaImagens() {
-    const galeriaContainer = document.getElementById('galeriaContainer');
-    const adicionarImagemBtn = document.getElementById('adicionarImagem');
+  const galeriaContainer = document.getElementById('galeriaContainer');
+  const adicionarImagemBtn = document.getElementById('adicionarImagem');
 
-    if (adicionarImagemBtn && galeriaContainer) {
-        adicionarImagemBtn.addEventListener('click', function() {
-            const novoInput = document.createElement('div');
-            novoInput.className = 'input-group mb-2 galeria-item';
-            const inputId = `galeriaImagem_${Date.now()}`;
-            novoInput.innerHTML = `
+  if (adicionarImagemBtn && galeriaContainer) {
+    adicionarImagemBtn.addEventListener('click', function () {
+      const novoInput = document.createElement('div');
+      novoInput.className = 'input-group mb-2 galeria-item';
+      const inputId = `galeriaImagem_${Date.now()}`;
+      novoInput.innerHTML = `
                 <input type="file" class="form-control galeria-imagem-file" 
                        id="${inputId}" accept="image/*">
                 <button type="button" class="btn btn-outline-danger remover-imagem">
@@ -455,59 +455,59 @@ function inicializarGaleriaImagens() {
                 </button>
                 <div class="image-preview mt-2" id="preview_${inputId}" style="display: none;"></div>
             `;
-            galeriaContainer.appendChild(novoInput);
+      galeriaContainer.appendChild(novoInput);
 
-            // Adicionar evento para o input de arquivo
-            const fileInput = novoInput.querySelector('.galeria-imagem-file');
-            fileInput.addEventListener('change', function() {
-                showImagePreview(this, `preview_${inputId}`);
-            });
+      // Adicionar evento para o input de arquivo
+      const fileInput = novoInput.querySelector('.galeria-imagem-file');
+      fileInput.addEventListener('change', function () {
+        showImagePreview(this, `preview_${inputId}`);
+      });
 
-            // Adicionar evento para o botão de remover
-            const removerBtn = novoInput.querySelector('.remover-imagem');
-            removerBtn.addEventListener('click', function() {
-                novoInput.remove();
-                atualizarBotoesRemover();
-            });
-
-            // Atualizar botões de remover
-            atualizarBotoesRemover();
-        });
-
-        // Atualizar botões de remover inicialmente
+      // Adicionar evento para o botão de remover
+      const removerBtn = novoInput.querySelector('.remover-imagem');
+      removerBtn.addEventListener('click', function () {
+        novoInput.remove();
         atualizarBotoesRemover();
-    }
+      });
+
+      // Atualizar botões de remover
+      atualizarBotoesRemover();
+    });
+
+    // Atualizar botões de remover inicialmente
+    atualizarBotoesRemover();
+  }
 }
 
 // Atualizar estado dos botões de remover
 function atualizarBotoesRemover() {
-    const botoesRemover = document.querySelectorAll('.remover-imagem');
-    const inputsGaleria = document.querySelectorAll('.galeria-item');
-    
-    botoesRemover.forEach((btn, index) => {
-        // Primeiro botão fica disabled se só tiver um input
-        btn.disabled = inputsGaleria.length === 1 && index === 0;
-        
-        if (!btn.hasAttribute('data-listener')) {
-            btn.setAttribute('data-listener', 'true');
-            btn.addEventListener('click', function() {
-                this.closest('.galeria-item').remove();
-                atualizarBotoesRemover();
-            });
-        }
-    });
+  const botoesRemover = document.querySelectorAll('.remover-imagem');
+  const inputsGaleria = document.querySelectorAll('.galeria-item');
+
+  botoesRemover.forEach((btn, index) => {
+    // Primeiro botão fica disabled se só tiver um input
+    btn.disabled = inputsGaleria.length === 1 && index === 0;
+
+    if (!btn.hasAttribute('data-listener')) {
+      btn.setAttribute('data-listener', 'true');
+      btn.addEventListener('click', function () {
+        this.closest('.galeria-item').remove();
+        atualizarBotoesRemover();
+      });
+    }
+  });
 }
 
 // Inicializar upload da imagem principal
 function inicializarUploadImagemPrincipal() {
-    const imagemInput = document.getElementById('imagemUpload');
-    const preview = document.getElementById('previewImagemPrincipal');
+  const imagemInput = document.getElementById('imagemUpload');
+  const preview = document.getElementById('previewImagemPrincipal');
 
-    if (imagemInput && preview) {
-        imagemInput.addEventListener('change', function() {
-            showImagePreview(this, 'previewImagemPrincipal');
-        });
-    }
+  if (imagemInput && preview) {
+    imagemInput.addEventListener('change', function () {
+      showImagePreview(this, 'previewImagemPrincipal');
+    });
+  }
 }
 
 // =============================
@@ -516,45 +516,49 @@ function inicializarUploadImagemPrincipal() {
 
 // Carregar e exibir lista de notícias
 async function carregarListaNoticias() {
-    const listaContainer = document.getElementById('listaNoticias');
-    const contador = document.getElementById('contadorNoticias');
-    
-    if (!listaContainer) return;
+  const listaContainer = document.getElementById('listaNoticias');
+  const contador = document.getElementById('contadorNoticias');
 
-    try {
-        const noticias = await carregarNoticias();
-        
-        if (noticias.length === 0) {
-            listaContainer.innerHTML = `
+  if (!listaContainer) return;
+
+  try {
+    const noticias = await carregarNoticias();
+
+    if (noticias.length === 0) {
+      listaContainer.innerHTML = `
                 <div class="text-center py-5">
                     <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
                     <p class="text-muted">Nenhuma notícia cadastrada.</p>
                     <p class="text-muted small">Use o formulário ao lado para criar a primeira notícia.</p>
                 </div>
             `;
-            if (contador) contador.textContent = '0 notícias';
-            return;
-        }
+      if (contador) contador.textContent = '0 notícias';
+      // Atualizar gráfico também
+      if (typeof montarGraficoCategorias === 'function') {
+        await montarGraficoCategorias();
+      }
+      return;
+    }
 
-        // Atualizar contador
-        if (contador) {
-            contador.textContent = `${noticias.length} ${noticias.length === 1 ? 'notícia' : 'notícias'}`;
-        }
+    // Atualizar contador
+    if (contador) {
+      contador.textContent = `${noticias.length} ${noticias.length === 1 ? 'notícia' : 'notícias'}`;
+    }
 
-        // Ordenar por data (mais recente primeiro)
-        noticias.sort((a, b) => new Date(b.data) - new Date(a.data));
+    // Ordenar por data (mais recente primeiro)
+    noticias.sort((a, b) => new Date(b.data) - new Date(a.data));
 
-        let html = '';
-        noticias.forEach(noticia => {
-            const dataFormatada = new Date(noticia.data).toLocaleDateString('pt-BR');
-            const descricaoResumida = noticia.descricao.length > 100 
-                ? noticia.descricao.substring(0, 100) + '...' 
-                : noticia.descricao;
+    let html = '';
+    noticias.forEach(noticia => {
+      const dataFormatada = new Date(noticia.data).toLocaleDateString('pt-BR');
+      const descricaoResumida = noticia.descricao.length > 100
+        ? noticia.descricao.substring(0, 100) + '...'
+        : noticia.descricao;
 
-            // Usar imagem base64 se disponível, senão usar URL padrão
-            const imagemSrc = noticia.imagemBase64 || noticia.imagem || 'assets/img/img1.jpg';
+      // Usar imagem base64 se disponível, senão usar URL padrão
+      const imagemSrc = noticia.imagemBase64 || noticia.imagem || 'assets/img/img1.jpg';
 
-            html += `
+      html += `
                 <div class="card mb-3 noticia-item" data-id="${noticia.id}" data-categoria="${noticia.categoria}">
                     <div class="card-body">
                         <div class="d-flex align-items-start gap-3">
@@ -582,81 +586,86 @@ async function carregarListaNoticias() {
                     </div>
                 </div>
             `;
-        });
+    });
 
-        listaContainer.innerHTML = html;
+    listaContainer.innerHTML = html;
 
-        // Adicionar eventos aos botões
-        adicionarEventosListaNoticias();
+    // Adicionar eventos aos botões
+    adicionarEventosListaNoticias();
 
-    } catch (error) {
-        console.error('Erro ao carregar lista de notícias:', error);
-        listaContainer.innerHTML = `
+    // Atualizar gráfico após montar a lista
+    if (typeof montarGraficoCategorias === 'function') {
+      await montarGraficoCategorias();
+    }
+
+  } catch (error) {
+    console.error('Erro ao carregar lista de notícias:', error);
+    listaContainer.innerHTML = `
             <div class="alert alert-danger">
                 <i class="fas fa-exclamation-triangle me-2"></i>
                 Erro ao carregar notícias. Verifique se o JSONServer está rodando.
             </div>
         `;
-    }
+  }
 }
 
 // Adicionar eventos aos botões da lista
 function adicionarEventosListaNoticias() {
-    // Botões de editar
-    document.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const noticiaId = this.getAttribute('data-id');
-            carregarNoticiaParaEdicao(noticiaId);
-        });
+  // Botões de editar
+  document.querySelectorAll('.btn-editar').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const noticiaId = this.getAttribute('data-id');
+      carregarNoticiaParaEdicao(noticiaId);
     });
+  });
 
-    // Botões de excluir
-    document.querySelectorAll('.btn-excluir').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const noticiaId = this.getAttribute('data-id');
-            const noticiaTitulo = this.getAttribute('data-titulo');
-            abrirModalExclusao(noticiaId, noticiaTitulo);
-        });
+  // Botões de excluir
+  document.querySelectorAll('.btn-excluir').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const noticiaId = this.getAttribute('data-id');
+      const noticiaTitulo = this.getAttribute('data-titulo');
+      abrirModalExclusao(noticiaId, noticiaTitulo);
     });
+  });
 }
 
 // Carregar notícia para edição
 async function carregarNoticiaParaEdicao(id) {
-    try {
-        const noticia = await carregarNoticiaPorId(id);
-        
-        if (!noticia) {
-            alert('Erro ao carregar notícia para edição.');
-            return;
-        }
+  try {
+    const noticia = await carregarNoticiaPorId(id);
 
-        // Preencher formulário com dados da notícia
-        document.getElementById('noticiaId').value = noticia.id;
-        document.getElementById('titulo').value = noticia.titulo || '';
-        document.getElementById('autor').value = noticia.autor || '';
-        document.getElementById('data').value = noticia.data || '';
-        document.getElementById('categoria').value = noticia.categoria || '';
-        document.getElementById('descricao').value = noticia.descricao || '';
-        document.getElementById('conteudo').value = noticia.conteudo || '';
-        document.getElementById('tags').value = noticia.tags ? noticia.tags.join(', ') : '';
-        document.getElementById('destaque').checked = noticia.destaque || false;
+    if (!noticia) {
+      alert('Erro ao carregar notícia para edição.');
+      return;
+    }
 
-        // Limpar preview da imagem principal
-        const previewImagem = document.getElementById('previewImagemPrincipal');
-        if (previewImagem) {
-            previewImagem.style.display = 'none';
-        }
+    // Preencher formulário com dados da notícia
+    document.getElementById('noticiaId').value = noticia.id;
+    document.getElementById('titulo').value = noticia.titulo || '';
+    document.getElementById('autor').value = noticia.autor || '';
+    document.getElementById('data').value = noticia.data || '';
+    document.getElementById('categoria').value = noticia.categoria || '';
+    document.getElementById('descricao').value = noticia.descricao || '';
+    document.getElementById('conteudo').value = noticia.conteudo || '';
+    document.getElementById('tags').value = noticia.tags ? noticia.tags.join(', ') : '';
+    document.getElementById('destaque').checked = noticia.destaque || false;
 
-        // Preencher galeria de imagens
-        const galeriaContainer = document.getElementById('galeriaContainer');
-        galeriaContainer.innerHTML = '';
-        
-        if (noticia.galeriaBase64 && noticia.galeriaBase64.length > 0) {
-            noticia.galeriaBase64.forEach((imagemBase64, index) => {
-                const novoInput = document.createElement('div');
-                novoInput.className = 'input-group mb-2 galeria-item';
-                const inputId = `galeriaImagem_${Date.now()}_${index}`;
-                novoInput.innerHTML = `
+    // Limpar preview da imagem principal
+    const previewImagem = document.getElementById('previewImagemPrincipal');
+    if (previewImagem) {
+      previewImagem.style.display = 'none';
+    }
+
+    // Preencher galeria de imagens
+    const galeriaContainer = document.getElementById('galeriaContainer');
+    galeriaContainer.innerHTML = '';
+
+    if (noticia.galeriaBase64 && noticia.galeriaBase64.length > 0) {
+      noticia.galeriaBase64.forEach((imagemBase64, index) => {
+        const novoInput = document.createElement('div');
+        novoInput.className = 'input-group mb-2 galeria-item';
+        const inputId = `galeriaImagem_${Date.now()}_${index}`;
+        novoInput.innerHTML = `
                     <input type="file" class="form-control galeria-imagem-file" 
                            id="${inputId}" accept="image/*">
                     <button type="button" class="btn btn-outline-danger remover-imagem">
@@ -671,24 +680,24 @@ async function carregarNoticiaParaEdicao(id) {
                         </div>
                     </div>
                 `;
-                galeriaContainer.appendChild(novoInput);
+        galeriaContainer.appendChild(novoInput);
 
-                // Adicionar eventos
-                const fileInput = novoInput.querySelector('.galeria-imagem-file');
-                const removeBtn = novoInput.querySelector('.remove-image');
-                
-                removeBtn.addEventListener('click', function() {
-                    const preview = document.getElementById(`preview_${inputId}`);
-                    preview.style.display = 'none';
-                    fileInput.value = '';
-                });
-            });
-        } else {
-            // Input vazio padrão
-            const inputPadrao = document.createElement('div');
-            inputPadrao.className = 'input-group mb-2 galeria-item';
-            const inputId = `galeriaImagem_${Date.now()}`;
-            inputPadrao.innerHTML = `
+        // Adicionar eventos
+        const fileInput = novoInput.querySelector('.galeria-imagem-file');
+        const removeBtn = novoInput.querySelector('.remove-image');
+
+        removeBtn.addEventListener('click', function () {
+          const preview = document.getElementById(`preview_${inputId}`);
+          preview.style.display = 'none';
+          fileInput.value = '';
+        });
+      });
+    } else {
+      // Input vazio padrão
+      const inputPadrao = document.createElement('div');
+      inputPadrao.className = 'input-group mb-2 galeria-item';
+      const inputId = `galeriaImagem_${Date.now()}`;
+      inputPadrao.innerHTML = `
                 <input type="file" class="form-control galeria-imagem-file" 
                        id="${inputId}" accept="image/*">
                 <button type="button" class="btn btn-outline-danger remover-imagem" disabled>
@@ -696,103 +705,103 @@ async function carregarNoticiaParaEdicao(id) {
                 </button>
                 <div class="image-preview mt-2" id="preview_${inputId}" style="display: none;"></div>
             `;
-            galeriaContainer.appendChild(inputPadrao);
+      galeriaContainer.appendChild(inputPadrao);
 
-            // Adicionar evento para o input de arquivo
-            const fileInput = inputPadrao.querySelector('.galeria-imagem-file');
-            fileInput.addEventListener('change', function() {
-                showImagePreview(this, `preview_${inputId}`);
-            });
-        }
-
-        // Atualizar botões de remover
-        atualizarBotoesRemover();
-
-        // Atualizar interface para modo edição
-        document.getElementById('tituloFormulario').textContent = 'Editar Notícia';
-        document.getElementById('subtituloFormulario').textContent = 'Edite os dados da notícia selecionada';
-        document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-save me-2"></i>Salvar Alterações';
-        document.getElementById('btnCancelar').style.display = 'block';
-
-        // Rolar para o formulário
-        document.getElementById('formCadastroNoticia').scrollIntoView({ behavior: 'smooth' });
-
-    } catch (error) {
-        console.error('Erro ao carregar notícia para edição:', error);
-        alert('Erro ao carregar notícia para edição.');
+      // Adicionar evento para o input de arquivo
+      const fileInput = inputPadrao.querySelector('.galeria-imagem-file');
+      fileInput.addEventListener('change', function () {
+        showImagePreview(this, `preview_${inputId}`);
+      });
     }
+
+    // Atualizar botões de remover
+    atualizarBotoesRemover();
+
+    // Atualizar interface para modo edição
+    document.getElementById('tituloFormulario').textContent = 'Editar Notícia';
+    document.getElementById('subtituloFormulario').textContent = 'Edite os dados da notícia selecionada';
+    document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-save me-2"></i>Salvar Alterações';
+    document.getElementById('btnCancelar').style.display = 'block';
+
+    // Rolar para o formulário
+    document.getElementById('formCadastroNoticia').scrollIntoView({ behavior: 'smooth' });
+
+  } catch (error) {
+    console.error('Erro ao carregar notícia para edição:', error);
+    alert('Erro ao carregar notícia para edição.');
+  }
 }
 
 // Abrir modal de exclusão
 function abrirModalExclusao(id, titulo) {
-    document.getElementById('tituloNoticiaExcluir').textContent = titulo;
-    
-    const modal = new bootstrap.Modal(document.getElementById('modalExcluir'));
-    modal.show();
+  document.getElementById('tituloNoticiaExcluir').textContent = titulo;
 
-    // Configurar botão de confirmação
-    document.getElementById('btnConfirmarExcluir').onclick = function() {
-        excluirNoticiaConfirmada(id);
-        modal.hide();
-    };
+  const modal = new bootstrap.Modal(document.getElementById('modalExcluir'));
+  modal.show();
+
+  // Configurar botão de confirmação
+  document.getElementById('btnConfirmarExcluir').onclick = function () {
+    excluirNoticiaConfirmada(id);
+    modal.hide();
+  };
 }
 
 // Excluir notícia confirmada
 async function excluirNoticiaConfirmada(id) {
-    try {
-        const sucesso = await excluirNoticia(id);
-        
-        if (sucesso) {
-            // Feedback visual
-            const alert = document.createElement('div');
-            alert.className = 'alert alert-success alert-dismissible fade show mt-3';
-            alert.innerHTML = `
+  try {
+    const sucesso = await excluirNoticia(id);
+
+    if (sucesso) {
+      // Feedback visual
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-success alert-dismissible fade show mt-3';
+      alert.innerHTML = `
                 <i class="fas fa-check-circle me-2"></i>
                 <strong>Sucesso!</strong> Notícia excluída com sucesso.
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
-            document.querySelector('.principal').prepend(alert);
+      document.querySelector('.principal').prepend(alert);
 
-            // Recarregar lista
-            await carregarListaNoticias();
+      // Recarregar lista
+      await carregarListaNoticias();
 
-            // Se estava editando a notícia excluída, limpar formulário
-            const noticiaIdAtual = document.getElementById('noticiaId').value;
-            if (noticiaIdAtual === id) {
-                cancelarEdicao();
-            }
+      // Se estava editando a notícia excluída, limpar formulário
+      const noticiaIdAtual = document.getElementById('noticiaId').value;
+      if (noticiaIdAtual === id) {
+        cancelarEdicao();
+      }
 
-        } else {
-            throw new Error('Erro ao excluir notícia');
-        }
+    } else {
+      throw new Error('Erro ao excluir notícia');
+    }
 
-    } catch (error) {
-        console.error('Erro ao excluir notícia:', error);
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-danger alert-dismissible fade show mt-3';
-        alert.innerHTML = `
+  } catch (error) {
+    console.error('Erro ao excluir notícia:', error);
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-danger alert-dismissible fade show mt-3';
+    alert.innerHTML = `
             <i class="fas fa-exclamation-triangle me-2"></i>
             <strong>Erro!</strong> Não foi possível excluir a notícia.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         `;
-        document.querySelector('.principal').prepend(alert);
-    }
+    document.querySelector('.principal').prepend(alert);
+  }
 }
 
 // Cancelar edição e voltar ao modo de cadastro
 function cancelarEdicao() {
-    document.getElementById('formCadastroNoticia').reset();
-    document.getElementById('noticiaId').value = '';
-    
-    // Restaurar interface para modo cadastro
-    document.getElementById('tituloFormulario').textContent = 'Cadastrar Nova Notícia';
-    document.getElementById('subtituloFormulario').textContent = 'Preencha os dados abaixo para publicar uma nova notícia';
-    document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-paper-plane me-2"></i>Publicar Notícia';
-    document.getElementById('btnCancelar').style.display = 'none';
+  document.getElementById('formCadastroNoticia').reset();
+  document.getElementById('noticiaId').value = '';
 
-    // Resetar galeria
-    const galeriaContainer = document.getElementById('galeriaContainer');
-    galeriaContainer.innerHTML = `
+  // Restaurar interface para modo cadastro
+  document.getElementById('tituloFormulario').textContent = 'Cadastrar Nova Notícia';
+  document.getElementById('subtituloFormulario').textContent = 'Preencha os dados abaixo para publicar uma nova notícia';
+  document.getElementById('btnSubmit').innerHTML = '<i class="fas fa-paper-plane me-2"></i>Publicar Notícia';
+  document.getElementById('btnCancelar').style.display = 'none';
+
+  // Resetar galeria
+  const galeriaContainer = document.getElementById('galeriaContainer');
+  galeriaContainer.innerHTML = `
         <div class="input-group mb-2 galeria-item">
             <input type="file" class="form-control galeria-imagem-file" 
                    id="galeriaImagem_1" accept="image/*">
@@ -803,348 +812,651 @@ function cancelarEdicao() {
         </div>
     `;
 
-    // Adicionar evento para o primeiro input
-    const firstInput = galeriaContainer.querySelector('.galeria-imagem-file');
-    if (firstInput) {
-        firstInput.addEventListener('change', function() {
-            showImagePreview(this, 'preview_galeriaImagem_1');
-        });
-    }
+  // Adicionar evento para o primeiro input
+  const firstInput = galeriaContainer.querySelector('.galeria-imagem-file');
+  if (firstInput) {
+    firstInput.addEventListener('change', function () {
+      showImagePreview(this, 'preview_galeriaImagem_1');
+    });
+  }
 
-    atualizarBotoesRemover();
+  atualizarBotoesRemover();
 
-    // Limpar preview da imagem principal
-    const previewImagem = document.getElementById('previewImagemPrincipal');
-    if (previewImagem) {
-        previewImagem.style.display = 'none';
-    }
+  // Limpar preview da imagem principal
+  const previewImagem = document.getElementById('previewImagemPrincipal');
+  if (previewImagem) {
+    previewImagem.style.display = 'none';
+  }
 
-    // Configurar data atual
-    configurarDataAtual();
+  // Configurar data atual
+  configurarDataAtual();
 }
 
 // Filtros e busca
 function inicializarFiltrosEBusca() {
-    const filtroCategoria = document.getElementById('filtroCategoria');
-    const buscaInput = document.getElementById('buscaNoticias');
-    const btnBuscar = document.getElementById('btnBuscar');
+  const filtroCategoria = document.getElementById('filtroCategoria');
+  const buscaInput = document.getElementById('buscaNoticias');
+  const btnBuscar = document.getElementById('btnBuscar');
 
-    if (filtroCategoria) {
-        filtroCategoria.addEventListener('change', aplicarFiltros);
-    }
+  if (filtroCategoria) {
+    filtroCategoria.addEventListener('change', aplicarFiltros);
+  }
 
-    if (btnBuscar) {
-        btnBuscar.addEventListener('click', aplicarFiltros);
-    }
+  if (btnBuscar) {
+    btnBuscar.addEventListener('click', aplicarFiltros);
+  }
 
-    if (buscaInput) {
-        buscaInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                aplicarFiltros();
-            }
-        });
-    }
+  if (buscaInput) {
+    buscaInput.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        aplicarFiltros();
+      }
+    });
+  }
 }
 
 // Aplicar filtros na lista
 function aplicarFiltros() {
-    const filtroCategoria = document.getElementById('filtroCategoria')?.value || '';
-    const termoBusca = document.getElementById('buscaNoticias')?.value.toLowerCase() || '';
-    
-    const noticias = document.querySelectorAll('.noticia-item');
-    
-    noticias.forEach(noticia => {
-        const categoria = noticia.getAttribute('data-categoria');
-        const titulo = noticia.querySelector('.card-title').textContent.toLowerCase();
-        const descricao = noticia.querySelector('.card-text').textContent.toLowerCase();
-        
-        const correspondeCategoria = !filtroCategoria || categoria === filtroCategoria;
-        const correspondeBusca = !termoBusca || titulo.includes(termoBusca) || descricao.includes(termoBusca);
-        
-        noticia.style.display = correspondeCategoria && correspondeBusca ? 'block' : 'none';
-    });
+  const filtroCategoria = document.getElementById('filtroCategoria')?.value || '';
+  const termoBusca = document.getElementById('buscaNoticias')?.value.toLowerCase() || '';
+
+  const noticias = document.querySelectorAll('.noticia-item');
+
+  noticias.forEach(noticia => {
+    const categoria = noticia.getAttribute('data-categoria');
+    const titulo = noticia.querySelector('.card-title').textContent.toLowerCase();
+    const descricao = noticia.querySelector('.card-text').textContent.toLowerCase();
+
+    const correspondeCategoria = !filtroCategoria || categoria === filtroCategoria;
+    const correspondeBusca = !termoBusca || titulo.includes(termoBusca) || descricao.includes(termoBusca);
+
+    noticia.style.display = correspondeCategoria && correspondeBusca ? 'block' : 'none';
+  });
 }
 
 // Processar uploads de imagens
 async function processarUploads() {
-    const imagemPrincipalInput = document.getElementById('imagemUpload');
-    const galeriaInputs = document.querySelectorAll('.galeria-imagem-file');
-    
-    // Imagem principal é opcional agora
-    const imagemPrincipalBase64 = imagemPrincipalInput.files[0] 
-        ? await fileToBase64(imagemPrincipalInput.files[0])
-        : null;
+  const imagemPrincipalInput = document.getElementById('imagemUpload');
+  const galeriaInputs = document.querySelectorAll('.galeria-imagem-file');
 
-    const galeriaBase64 = [];
-    for (const input of galeriaInputs) {
-        if (input.files[0]) {
-            const base64 = await fileToBase64(input.files[0]);
-            galeriaBase64.push(base64);
-        }
+  // Imagem principal é opcional agora
+  const imagemPrincipalBase64 = imagemPrincipalInput.files[0]
+    ? await fileToBase64(imagemPrincipalInput.files[0])
+    : null;
+
+  const galeriaBase64 = [];
+  for (const input of galeriaInputs) {
+    if (input.files[0]) {
+      const base64 = await fileToBase64(input.files[0]);
+      galeriaBase64.push(base64);
     }
+  }
 
-    return {
-        imagemPrincipalBase64,
-        galeriaBase64
-    };
+  return {
+    imagemPrincipalBase64,
+    galeriaBase64
+  };
 }
 
 // Atualizar função de submissão do formulário para suportar edição e uploads
 function inicializarFormularioCadastro() {
-    const form = document.getElementById('formCadastroNoticia');
-    const btnCancelar = document.getElementById('btnCancelar');
+  const form = document.getElementById('formCadastroNoticia');
+  const btnCancelar = document.getElementById('btnCancelar');
 
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
+  if (form) {
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-            const noticiaId = document.getElementById('noticiaId').value;
-            const isEdicao = !!noticiaId;
+      const noticiaId = document.getElementById('noticiaId').value;
+      const isEdicao = !!noticiaId;
 
-            try {
-                // Processar uploads de imagens (agora opcionais)
-                const { imagemPrincipalBase64, galeriaBase64 } = await processarUploads();
+      try {
+        // Processar uploads de imagens (agora opcionais)
+        const { imagemPrincipalBase64, galeriaBase64 } = await processarUploads();
 
-                // Coletar dados do formulário
-                const formData = new FormData(form);
+        // Coletar dados do formulário
+        const formData = new FormData(form);
 
-                const noticiaData = {
-                    titulo: formData.get('titulo'),
-                    descricao: formData.get('descricao'),
-                    conteudo: formData.get('conteudo'),
-                    categoria: formData.get('categoria'),
-                    autor: formData.get('autor'),
-                    data: formData.get('data'),
-                    tags: formData.get('tags') ? formData.get('tags').split(',').map(tag => tag.trim()) : [],
-                    destaque: formData.get('destaque') === 'on',
-                    // URL de fallback padrão
-                    imagem: 'assets/img/img1.jpg'
-                };
+        const noticiaData = {
+          titulo: formData.get('titulo'),
+          descricao: formData.get('descricao'),
+          conteudo: formData.get('conteudo'),
+          categoria: formData.get('categoria'),
+          autor: formData.get('autor'),
+          data: formData.get('data'),
+          tags: formData.get('tags') ? formData.get('tags').split(',').map(tag => tag.trim()) : [],
+          destaque: formData.get('destaque') === 'on',
+          // URL de fallback padrão
+          imagem: 'assets/img/img1.jpg'
+        };
 
-                // Adicionar imagens base64 se existirem
-                if (imagemPrincipalBase64) {
-                    noticiaData.imagemBase64 = imagemPrincipalBase64;
-                }
+        // Adicionar imagens base64 se existirem
+        if (imagemPrincipalBase64) {
+          noticiaData.imagemBase64 = imagemPrincipalBase64;
+        }
 
-                if (galeriaBase64.length > 0) {
-                    noticiaData.galeriaBase64 = galeriaBase64;
-                }
+        if (galeriaBase64.length > 0) {
+          noticiaData.galeriaBase64 = galeriaBase64;
+        }
 
-                // Mostrar loading
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Salvando...';
-                submitBtn.disabled = true;
+        // Mostrar loading
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Salvando...';
+        submitBtn.disabled = true;
 
-                let resultado;
-                if (isEdicao) {
-                    // Atualizar notícia existente
-                    resultado = await atualizarNoticia(noticiaId, { ...noticiaData, id: parseInt(noticiaId) });
-                } else {
-                    // Criar nova notícia
-                    resultado = await criarNoticia(noticiaData);
-                }
-                
-                if (resultado) {
-                    // Feedback visual de sucesso
-                    const alert = document.createElement('div');
-                    alert.className = 'alert alert-success alert-dismissible fade show mt-3';
-                    alert.innerHTML = `
+        let resultado;
+        if (isEdicao) {
+          // Atualizar notícia existente
+          resultado = await atualizarNoticia(noticiaId, { ...noticiaData, id: parseInt(noticiaId) });
+        } else {
+          // Criar nova notícia
+          resultado = await criarNoticia(noticiaData);
+        }
+
+        if (resultado) {
+          // Feedback visual de sucesso
+          const alert = document.createElement('div');
+          alert.className = 'alert alert-success alert-dismissible fade show mt-3';
+          alert.innerHTML = `
                         <i class="fas fa-check-circle me-2"></i>
                         <strong>Sucesso!</strong> Notícia ${isEdicao ? 'atualizada' : 'publicada'} com sucesso.
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     `;
-                    form.prepend(alert);
+          form.prepend(alert);
 
-                    // Recarregar lista
-                    await carregarListaNoticias();
+          // Recarregar lista
+          await carregarListaNoticias();
 
-                    // Limpar formulário após sucesso (apenas se for novo cadastro)
-                    if (!isEdicao) {
-                        setTimeout(() => {
-                            cancelarEdicao();
-                        }, 2000);
-                    }
+          // Limpar formulário após sucesso (apenas se for novo cadastro)
+          if (!isEdicao) {
+            setTimeout(() => {
+              cancelarEdicao();
+            }, 2000);
+          }
 
-                } else {
-                    throw new Error(`Erro ao ${isEdicao ? 'atualizar' : 'publicar'} notícia`);
-                }
+        } else {
+          throw new Error(`Erro ao ${isEdicao ? 'atualizar' : 'publicar'} notícia`);
+        }
 
-            } catch (error) {
-                console.error('Erro:', error);
-                const alert = document.createElement('div');
-                alert.className = 'alert alert-danger alert-dismissible fade show mt-3';
-                alert.innerHTML = `
+      } catch (error) {
+        console.error('Erro:', error);
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-danger alert-dismissible fade show mt-3';
+        alert.innerHTML = `
                     <i class="fas fa-exclamation-triangle me-2"></i>
                     <strong>Erro!</strong> Não foi possível ${isEdicao ? 'atualizar' : 'publicar'} a notícia.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 `;
-                form.prepend(alert);
-            } finally {
-                // Restaurar botão
-                const submitBtn = form.querySelector('button[type="submit"]');
-                if (submitBtn) {
-                    submitBtn.innerHTML = isEdicao 
-                        ? '<i class="fas fa-save me-2"></i>Salvar Alterações' 
-                        : '<i class="fas fa-paper-plane me-2"></i>Publicar Notícia';
-                    submitBtn.disabled = false;
-                }
-            }
-        });
-
-        // Evento para botão cancelar
-        if (btnCancelar) {
-            btnCancelar.addEventListener('click', cancelarEdicao);
+        form.prepend(alert);
+      } finally {
+        // Restaurar botão
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.innerHTML = isEdicao
+            ? '<i class="fas fa-save me-2"></i>Salvar Alterações'
+            : '<i class="fas fa-paper-plane me-2"></i>Publicar Notícia';
+          submitBtn.disabled = false;
         }
+      }
+    });
 
-        // Evento para limpar formulário
-        const btnLimpar = form.querySelector('#btnLimpar');
-        if (btnLimpar) {
-            btnLimpar.addEventListener('click', function() {
-                cancelarEdicao();
-            });
-        }
+    // Evento para botão cancelar
+    if (btnCancelar) {
+      btnCancelar.addEventListener('click', cancelarEdicao);
     }
+
+    // Evento para limpar formulário
+    const btnLimpar = form.querySelector('#btnLimpar');
+    if (btnLimpar) {
+      btnLimpar.addEventListener('click', function () {
+        cancelarEdicao();
+      });
+    }
+  }
 }
 
 // Inicializar página de cadastro (atualizada)
 function inicializarPaginaCadastro() {
-    configurarDataAtual();
-    inicializarContadorDescricao();
-    inicializarUploadImagemPrincipal();
-    inicializarGaleriaImagens();
-    carregarListaNoticias();
-    inicializarFiltrosEBusca();
-    
-    // Configuração do formulário
-    const form = document.getElementById('formCadastroNoticia');
-    
-    if (form) {
-        form.onsubmit = async function(e) {
-            e.preventDefault();
-            
-            const noticiaId = document.getElementById('noticiaId').value;
-            const isEdicao = !!noticiaId;
+  configurarDataAtual();
+  inicializarContadorDescricao();
+  inicializarUploadImagemPrincipal();
+  inicializarGaleriaImagens();
+  carregarListaNoticias();
+  inicializarFiltrosEBusca();
 
-            try {
-                // Processar uploads de imagens
-                const { imagemPrincipalBase64, galeriaBase64 } = await processarUploads();
+  // Configuração do formulário
+  const form = document.getElementById('formCadastroNoticia');
 
-                // Coletar dados do formulário
-                const formData = new FormData(this);
+  if (form) {
+    form.onsubmit = async function (e) {
+      e.preventDefault();
 
-                const noticiaData = {
-                    titulo: formData.get('titulo'),
-                    descricao: formData.get('descricao'),
-                    conteudo: formData.get('conteudo'),
-                    categoria: formData.get('categoria'),
-                    autor: formData.get('autor'),
-                    data: formData.get('data'),
-                    tags: formData.get('tags') ? formData.get('tags').split(',').map(tag => tag.trim()) : [],
-                    destaque: formData.get('destaque') === 'on'
-                };
+      const noticiaId = document.getElementById('noticiaId').value;
+      const isEdicao = !!noticiaId;
 
-                // Adicionar imagens base64 se existirem
-                if (imagemPrincipalBase64) {
-                    noticiaData.imagemBase64 = imagemPrincipalBase64;
-                }
+      try {
+        // Processar uploads de imagens
+        const { imagemPrincipalBase64, galeriaBase64 } = await processarUploads();
 
-                if (galeriaBase64.length > 0) {
-                    noticiaData.galeriaBase64 = galeriaBase64;
-                }
+        // Coletar dados do formulário
+        const formData = new FormData(this);
 
-                // Mostrar loading
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enviando...';
-                submitBtn.disabled = true;
+        const noticiaData = {
+          titulo: formData.get('titulo'),
+          descricao: formData.get('descricao'),
+          conteudo: formData.get('conteudo'),
+          categoria: formData.get('categoria'),
+          autor: formData.get('autor'),
+          data: formData.get('data'),
+          tags: formData.get('tags') ? formData.get('tags').split(',').map(tag => tag.trim()) : [],
+          destaque: formData.get('destaque') === 'on'
+        };
 
-                let resultado;
-                if (isEdicao) {
-                    resultado = await atualizarNoticia(noticiaId, { ...noticiaData, id: parseInt(noticiaId) });
-                } else {
-                    resultado = await criarNoticia(noticiaData);
-                }
-                
-                if (resultado) {
-                    // Feedback visual de sucesso
-                    const alert = document.createElement('div');
-                    alert.className = 'alert alert-success alert-dismissible fade show mt-3';
-                    alert.innerHTML = `
+        // Adicionar imagens base64 se existirem
+        if (imagemPrincipalBase64) {
+          noticiaData.imagemBase64 = imagemPrincipalBase64;
+        }
+
+        if (galeriaBase64.length > 0) {
+          noticiaData.galeriaBase64 = galeriaBase64;
+        }
+
+        // Mostrar loading
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Enviando...';
+        submitBtn.disabled = true;
+
+        let resultado;
+        if (isEdicao) {
+          resultado = await atualizarNoticia(noticiaId, { ...noticiaData, id: parseInt(noticiaId) });
+        } else {
+          resultado = await criarNoticia(noticiaData);
+        }
+
+        if (resultado) {
+          // Feedback visual de sucesso
+          const alert = document.createElement('div');
+          alert.className = 'alert alert-success alert-dismissible fade show mt-3';
+          alert.innerHTML = `
                         <i class="fas fa-check-circle me-2"></i>
                         <strong>Sucesso!</strong> Notícia ${isEdicao ? 'atualizada' : 'publicada'} com sucesso.
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     `;
-                    this.prepend(alert);
+          this.prepend(alert);
 
-                    // Recarregar lista
-                    await carregarListaNoticias();
+          // Recarregar lista
+          await carregarListaNoticias();
 
-                    // Limpar formulário após sucesso (apenas se for novo cadastro)
-                    if (!isEdicao) {
-                        setTimeout(() => {
-                            this.reset();
-                            configurarDataAtual();
-                        }, 2000);
-                    }
+          // Limpar formulário após sucesso (apenas se for novo cadastro)
+          if (!isEdicao) {
+            setTimeout(() => {
+              this.reset();
+              configurarDataAtual();
+            }, 2000);
+          }
 
-                } else {
-                    throw new Error(`Erro ao ${isEdicao ? 'atualizar' : 'publicar'} notícia`);
-                }
+        } else {
+          throw new Error(`Erro ao ${isEdicao ? 'atualizar' : 'publicar'} notícia`);
+        }
 
-            } catch (error) {
-                const alert = document.createElement('div');
-                alert.className = 'alert alert-danger alert-dismissible fade show mt-3';
-                alert.innerHTML = `
+      } catch (error) {
+        const alert = document.createElement('div');
+        alert.className = 'alert alert-danger alert-dismissible fade show mt-3';
+        alert.innerHTML = `
                     <i class="fas fa-exclamation-triangle me-2"></i>
                     <strong>Erro!</strong> Não foi possível ${isEdicao ? 'atualizar' : 'publicar'} a notícia.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 `;
-                this.prepend(alert);
-            } finally {
-                // Restaurar botão
-                const submitBtn = this.querySelector('button[type="submit"]');
-                if (submitBtn) {
-                    submitBtn.innerHTML = isEdicao 
-                        ? '<i class="fas fa-save me-2"></i>Salvar Alterações' 
-                        : '<i class="fas fa-paper-plane me-2"></i>Publicar Notícia';
-                    submitBtn.disabled = false;
-                }
-            }
-            
-            return false;
-        };
-    }
+        this.prepend(alert);
+      } finally {
+        // Restaurar botão
+        const submitBtn = this.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.innerHTML = isEdicao
+            ? '<i class="fas fa-save me-2"></i>Salvar Alterações'
+            : '<i class="fas fa-paper-plane me-2"></i>Publicar Notícia';
+          submitBtn.disabled = false;
+        }
+      }
+
+      return false;
+    };
+  }
 }
+
+/* ===========================================================
+   AQUI COMEÇA O CÓDIGO ADICIONADO: PÁGINA DE NOTÍCIAS (noticias.html)
+   As funções abaixo foram incluídas para suportar a página
+   noticias.html e seus filtros sem modificar o restante.
+   =========================================================== */
+
+// Retorna data a partir de diferentes campos (compatibilidade)
+function obterDataNoticia(n) {
+  return n.data || n.dataPublicacao || n.data_publicacao || null;
+}
+
+// Normalizar texto para buscas
+function norm(str) {
+  return (str || '').toString().toLowerCase();
+}
+
+// Renderiza a lista na página de notícias (usa createCard se disponível)
+function renderizarNoticiasLista(noticias) {
+  const container = document.getElementById('listaNoticiasPage');
+  if (!container) return;
+  container.innerHTML = ''; // limpar
+
+  if (!noticias || noticias.length === 0) {
+    container.innerHTML = `
+      <div class="col-12 text-center py-5">
+        <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+        <p class="text-muted">Nenhuma notícia encontrada com os filtros selecionados.</p>
+      </div>
+    `;
+    return;
+  }
+
+  noticias.forEach(noticia => {
+    // Se createCard estiver definido, usamos para consistência visual
+    if (typeof createCard === 'function') {
+      // createCard já retorna um elemento <div class="col-..."> pronto para a grade
+      const cardCol = createCard(noticia);
+      // assegura que a coluna tem ao menos uma classe de grade se não tiver
+      if (!cardCol.className || !cardCol.className.includes('col-')) {
+        cardCol.classList.add('col-12', 'col-sm-6', 'col-lg-4');
+      }
+      container.appendChild(cardCol);
+    } else {
+      // fallback: cria manualmente colunas responsivas compatíveis com o grid
+      const col = document.createElement('div');
+      col.className = 'col-12 col-sm-6 col-lg-4 mb-3';
+      col.innerHTML = `
+        <div class="card h-100">
+          <img src="${noticia.imagemBase64 || noticia.imagem || 'assets/img/img1.jpg'}" class="card-img-top" alt="${escapeHtml(noticia.titulo)}" style="height:200px; object-fit:cover;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-success">${escapeHtml(noticia.titulo)}</h5>
+            <p class="card-text small text-muted">${escapeHtml(noticia.categoria || '')} • ${new Date(obterDataNoticia(noticia) || '').toLocaleDateString('pt-BR') || ''}</p>
+            <p class="card-text flex-grow-1">${escapeHtml(noticia.descricao || '').substring(0, 180)}</p>
+            <div class="mt-2">
+              <a href="detalhe.html?id=${encodeURIComponent(noticia.id)}" class="btn btn-sm detalhe-btn">Ver detalhe</a>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(col);
+    }
+  });
+}
+
+// Aplica filtros ao array de notícias
+function filtrarNoticias(noticias) {
+  const cat = document.getElementById('filtro_categoria_page') ? document.getElementById('filtro_categoria_page').value : '';
+  const busca = document.getElementById('filtro_busca_page') ? norm(document.getElementById('filtro_busca_page').value) : '';
+  const tag = document.getElementById('filtro_tag_page') ? norm(document.getElementById('filtro_tag_page').value) : '';
+  const destaque = document.getElementById('filtro_destaque_page') ? document.getElementById('filtro_destaque_page').value : '';
+  const dataInicio = document.getElementById('filtro_data_inicio_page') ? document.getElementById('filtro_data_inicio_page').value : '';
+  const dataFim = document.getElementById('filtro_data_fim_page') ? document.getElementById('filtro_data_fim_page').value : '';
+
+  return (noticias || []).filter(n => {
+    // Categoria
+    if (cat && (n.categoria || '') !== cat) return false;
+
+    // Destaque
+    if (destaque === 'true' && !n.destaque) return false;
+    if (destaque === 'false' && n.destaque) return false;
+
+    // Busca
+    if (busca) {
+      const combinado = norm(n.titulo) + ' ' + norm(n.descricao) + ' ' + norm(n.conteudo);
+      if (!combinado.includes(busca)) return false;
+    }
+
+    // Tag
+    if (tag) {
+      let tagsArr = [];
+      if (Array.isArray(n.tags)) tagsArr = n.tags.map(t => norm(t));
+      else if (typeof n.tags === 'string') tagsArr = n.tags.split(',').map(t => norm(t.trim()));
+      if (!tagsArr.some(t => t.includes(tag))) return false;
+    }
+
+    // Intervalo de datas
+    const dataStr = obterDataNoticia(n);
+    const dataNoticia = dataStr ? new Date(dataStr) : null;
+    if (dataInicio) {
+      const inicio = new Date(dataInicio);
+      if (!dataNoticia || dataNoticia < inicio) return false;
+    }
+    if (dataFim) {
+      const fim = new Date(dataFim);
+      fim.setHours(23, 59, 59, 999);
+      if (!dataNoticia || dataNoticia > fim) return false;
+    }
+
+    return true;
+  });
+}
+
+// Atualiza contador e resumo por categoria (baseado no conjunto completo)
+function atualizarResumo(noticiasFiltradas, todasNoticias) {
+  const contadorEl = document.getElementById('contador_resultados');
+  if (contadorEl) contadorEl.textContent = (noticiasFiltradas || []).length;
+
+  const resumoEl = document.getElementById('resumoCategorias');
+  if (!resumoEl) return;
+
+  const contagem = {};
+  (todasNoticias || []).forEach(n => {
+    const c = n.categoria || 'Outros';
+    contagem[c] = (contagem[c] || 0) + 1;
+  });
+
+  resumoEl.innerHTML = Object.keys(contagem).map(k => `<div><strong>${escapeHtml(k)}:</strong> ${contagem[k]}</div>`).join('');
+}
+
+// Cache local de todas as notícias carregadas na página de notícias
+let todasNoticiasCache = [];
+
+// Inicializa a página de notícias: carrega dados, aplica filtros iniciais e prepara eventos
+async function inicializarPaginaNoticias() {
+  try {
+    const container = document.getElementById('listaNoticiasPage');
+    const loading = document.getElementById('loadingNoticiasPage');
+    if (loading) loading.style.display = 'block';
+
+    const noticias = await carregarNoticias();
+    todasNoticiasCache = noticias || [];
+
+    const filtradas = filtrarNoticias(todasNoticiasCache);
+    renderizarNoticiasLista(filtradas);
+    atualizarResumo(filtradas, todasNoticiasCache);
+
+    if (loading) loading.style.display = 'none';
+  } catch (err) {
+    console.error('Erro ao inicializar página de notícias:', err);
+    const container = document.getElementById('listaNoticiasPage');
+    if (container) container.innerHTML = `<div class="col-12"><div class="alert alert-danger">Erro ao carregar notícias.</div></div>`;
+  }
+}
+
+// Wiring: eventos dos controles da página de notícias (se existirem)
+document.addEventListener('DOMContentLoaded', function () {
+  // Buscar botão / campo
+  const btnBuscarPage = document.getElementById('btnBuscarPage');
+  if (btnBuscarPage) {
+    btnBuscarPage.addEventListener('click', function () {
+      const filtradas = filtrarNoticias(todasNoticiasCache);
+      renderizarNoticiasLista(filtradas);
+      atualizarResumo(filtradas, todasNoticiasCache);
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    });
+  }
+
+  const buscaInputPage = document.getElementById('filtro_busca_page');
+  if (buscaInputPage) {
+    buscaInputPage.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (btnBuscarPage) btnBuscarPage.click();
+      }
+    });
+  }
+
+  const btnAplicarFiltros = document.getElementById('btnAplicarFiltros');
+  if (btnAplicarFiltros) {
+    btnAplicarFiltros.addEventListener('click', function () {
+      const filtradas = filtrarNoticias(todasNoticiasCache);
+      renderizarNoticiasLista(filtradas);
+      atualizarResumo(filtradas, todasNoticiasCache);
+    });
+  }
+
+  const btnLimparFiltros = document.getElementById('btnLimparFiltros');
+  if (btnLimparFiltros) {
+    btnLimparFiltros.addEventListener('click', function () {
+      if (document.getElementById('filtro_categoria_page')) document.getElementById('filtro_categoria_page').value = '';
+      if (document.getElementById('filtro_busca_page')) document.getElementById('filtro_busca_page').value = '';
+      if (document.getElementById('filtro_tag_page')) document.getElementById('filtro_tag_page').value = '';
+      if (document.getElementById('filtro_destaque_page')) document.getElementById('filtro_destaque_page').value = '';
+      if (document.getElementById('filtro_data_inicio_page')) document.getElementById('filtro_data_inicio_page').value = '';
+      if (document.getElementById('filtro_data_fim_page')) document.getElementById('filtro_data_fim_page').value = '';
+      renderizarNoticiasLista(todasNoticiasCache);
+      atualizarResumo(todasNoticiasCache, todasNoticiasCache);
+    });
+  }
+
+  // Applies quick change filters
+  ['filtro_categoria_page', 'filtro_destaque_page'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', function () {
+      const filtradas = filtrarNoticias(todasNoticiasCache);
+      renderizarNoticiasLista(filtradas);
+      atualizarResumo(filtradas, todasNoticiasCache);
+    });
+  });
+});
+
+/* ===========================================================
+   FIM DO BLOCO: Página de notícias
+   =========================================================== */
 
 // =============================
 // INICIALIZAÇÃO
 // =============================
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Página de cadastro
-    if (window.location.pathname.includes("cadastro_noticias.html") || 
-        document.getElementById('formCadastroNoticia')) {
-        inicializarPaginaCadastro();
-        return;
-    }
+  // Se a página tem o formulário de cadastro -> inicializa cadastro
+  if (window.location.pathname.includes("cadastro_noticias.html") ||
+    document.getElementById('formCadastroNoticia')) {
+    inicializarPaginaCadastro();
+    return;
+  }
 
-    // Página inicial
-    if (document.getElementById('emAltaContainer') && document.getElementById('recentesContainer')) {
-        montarCarousel();
-        montarCardsIndex();
-        return;
-    }
+  // Página inicial (index)
+  if (document.getElementById('emAltaContainer') && document.getElementById('recentesContainer')) {
+    montarCarousel();
+    montarCardsIndex();
+    return;
+  }
 
-    // Página de detalhe
-    if (window.location.pathname.includes("detalhe.html")) {
-        carregarDetalhe();
-        return;
-    }
+  // Página de detalhe
+  if (window.location.pathname.includes("detalhe.html") || document.getElementById('pageTitle')) {
+    carregarDetalhe();
+    return;
+  }
 
-    // Página de notícias
-    if (window.location.pathname.includes("noticias.html")) {
-        inicializarPaginaNoticias();
-        return;
-    }
+  // Página de notícias
+  if (window.location.pathname.includes("noticias.html") ||
+    window.location.pathname.includes("noticia.html") ||
+    document.getElementById('listaNoticiasPage')) {
+    inicializarPaginaNoticias();
+    return;
+  }
+
+  // fallback: se o elemento de lista existir, inicializa notícias
+  if (document.getElementById('listaNoticiasPage')) {
+    inicializarPaginaNoticias();
+    return;
+  }
 });
+
+/* ==============================
+   GRÁFICO (Chart.js)
+   ============================== */
+
+// Variável do gráfico (mantida para atualizações)
+let graficoCategorias = null;
+
+async function montarGraficoCategorias() {
+  try {
+    // Se Chart não está disponível, sai (evita erro se CDN não carregou)
+    if (typeof Chart === 'undefined') return;
+
+    const noticias = await carregarNoticias(); // usa a função já existente
+
+    // Contar por categoria (garantir categorias padronizadas)
+    const contagem = {};
+    const categoriasPadrao = ["Em Alta", "Notícias Recentes", "Transferências", "Lesões", "Campeonatos"];
+
+    // Inicializa contagem com 0 para manter ordem
+    categoriasPadrao.forEach(c => contagem[c] = 0);
+
+    noticias.forEach(n => {
+      const cat = n.categoria || 'Outros';
+      if (contagem.hasOwnProperty(cat)) contagem[cat] += 1;
+      else contagem[cat] = (contagem[cat] || 0) + 1;
+    });
+
+    const labels = Object.keys(contagem);
+    const data = labels.map(l => contagem[l]);
+
+    // Gerar legenda textual simples
+    const legendaEl = document.getElementById('legendaChartCategorias');
+    if (legendaEl) {
+      legendaEl.innerHTML = labels.map((l, i) => `<span class="me-3"><strong>${l}:</strong> ${data[i]}</span>`).join('');
+    }
+
+    const ctx = document.getElementById('chartCategorias');
+    if (!ctx) return;
+
+    // Se já existe um gráfico, atualiza os dados
+    if (graficoCategorias) {
+      graficoCategorias.data.labels = labels;
+      graficoCategorias.data.datasets[0].data = data;
+      graficoCategorias.update();
+      return;
+    }
+
+    // Criar novo gráfico
+    graficoCategorias = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Número de notícias',
+          data: data,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { mode: 'index', intersect: false }
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Erro ao montar gráfico de categorias:', error);
+  }
+}
