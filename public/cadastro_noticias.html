@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastrar Notícia - Futebol News</title>
+    <meta name="description" content="Cadastro e gerenciamento de notícias no portal Futebol News" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center align-items-center py-2 py-md-3">
+                <a href="index.html" class="inicio text-center mb-2 mb-md-0 d-flex align-items-center">
+                    <img src="assets/img/logo.jpg" alt="Futebol News" class="logo me-2">
+                    <h1 class="h3 h1-md mb-0">Futebol News</h1>
+                </a>
+                <nav class="caixa-menuprincipal">
+                    <ul class="d-flex flex-wrap justify-content-center list-unstyled mb-0 gap-2 gap-md-3">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="noticias.html">Notícias</a></li>
+                        <li><a href="campeonatos.html">Campeonatos</a></li>
+                        <li><a href="times.html">Times</a></li>
+                        <li><a href="cadastro_noticias.html" class="active">Gerenciar Notícias</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <div class="container my-4">
+        <div class="row">
+            <!-- Seção de Lista de Notícias -->
+            <div class="col-lg-6 mb-4">
+                <div class="principal p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="h2-md text-success mb-0">Notícias Cadastradas</h2>
+                        <span class="badge bg-success fs-6" id="contadorNoticias">0 notícias</span>
+                    </div>
+
+                    <!-- Filtros e Busca -->
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-6">
+                            <select class="form-select form-select-sm" id="filtroCategoria">
+                                <option value="">Todas as categorias</option>
+                                <option value="Em Alta">Em Alta</option>
+                                <option value="Notícias Recentes">Notícias Recentes</option>
+                                <option value="Transferências">Transferências</option>
+                                <option value="Lesões">Lesões</option>
+                                <option value="Campeonatos">Campeonatos</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" id="buscaNoticias" placeholder="Buscar notícias...">
+                                <button class="btn btn-outline-success" type="button" id="btnBuscar">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Notícias -->
+                    <div id="listaNoticias" class="mt-3">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="visually-hidden">Carregando notícias...</span>
+                            </div>
+                            <p class="text-muted mt-2">Carregando notícias...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Cadastro/Edição -->
+            <div class="col-lg-6">
+                <div class="principal p-4">
+                    <div class="text-center mb-4">
+                        <h2 class="h2-md text-success" id="tituloFormulario">Cadastrar Nova Notícia</h2>
+                        <p class="text-muted" id="subtituloFormulario">Preencha os dados abaixo para publicar uma nova notícia</p>
+                    </div>
+
+                    <!-- Formulário de Cadastro -->
+                    <form id="formCadastroNoticia">
+                        <input type="hidden" id="noticiaId" name="id">
+                        
+                        <div class="row g-3">
+                            <!-- Título -->
+                            <div class="col-12">
+                                <label for="titulo" class="form-label fw-bold">Título da Notícia *</label>
+                                <input type="text" class="form-control form-control-lg" id="titulo" name="titulo" 
+                                       placeholder="Título da notícia" required>
+                                <div class="form-text">Título chamativo e descritivo da notícia.</div>
+                            </div>
+
+                            <!-- Autor e Data -->
+                            <div class="col-md-6">
+                                <label for="autor" class="form-label fw-bold">Autor *</label>
+                                <input type="text" class="form-control" id="autor" name="autor" 
+                                       placeholder="Seu nome completo" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="data" class="form-label fw-bold">Data da Publicação *</label>
+                                <input type="date" class="form-control" id="data" name="data" required>
+                            </div>
+
+                            <!-- Categoria -->
+                            <div class="col-12">
+                                <label for="categoria" class="form-label fw-bold">Categoria *</label>
+                                <select class="form-select" id="categoria" name="categoria" required>
+                                    <option value="">Selecione uma categoria...</option>
+                                    <option value="Em Alta">🔥 Em Alta</option>
+                                    <option value="Notícias Recentes">📰 Notícias Recentes</option>
+                                    <option value="Transferências">🔄 Transferências</option>
+                                    <option value="Lesões">🏥 Lesões</option>
+                                    <option value="Campeonatos">🏆 Campeonatos</option>
+                                </select>
+                            </div>
+
+                            <!-- Descrição -->
+                            <div class="col-12">
+                                <label for="descricao" class="form-label fw-bold">Descrição Resumida *</label>
+                                <textarea class="form-control" id="descricao" name="descricao" rows="3" 
+                                          placeholder="Breve descrição que aparecerá na lista de notícias..." 
+                                          maxlength="200" required></textarea>
+                                <div class="form-text"><span id="contadorDescricao">0</span>/200 caracteres</div>
+                            </div>
+
+                            <!-- Conteúdo Completo -->
+                            <div class="col-12">
+                                <label for="conteudo" class="form-label fw-bold">Conteúdo Completo *</label>
+                                <textarea class="form-control" id="conteudo" name="conteudo" rows="8" 
+                                          placeholder="Descreva aqui todos os detalhes da notícia..." required></textarea>
+                                <div class="form-text">Use parágrafos para organizar o conteúdo.</div>
+                            </div>
+
+                            <!-- Imagem Principal -->
+                            <div class="col-12">
+                                <label for="imagemUpload" class="form-label fw-bold">Imagem Principal</label>
+                                <input type="file" class="form-control" id="imagemUpload" name="imagemUpload" 
+                                       accept="image/*">
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Formatos aceitos: JPG, PNG, GIF, WebP (máx. 5MB) - <span class="text-muted">Opcional</span>
+                                </div>
+                                <!-- Preview da Imagem Principal -->
+                                <div class="image-preview mt-2" id="previewImagemPrincipal" style="display: none;"></div>
+                            </div>
+
+                            <!-- Galeria de Imagens -->
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Galeria de Imagens</label>
+                                <div id="galeriaContainer">
+                                    <div class="input-group mb-2 galeria-item">
+                                        <input type="file" class="form-control galeria-imagem-file" 
+                                               id="galeriaImagem_1" accept="image/*">
+                                        <button type="button" class="btn btn-outline-danger remover-imagem" disabled>
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                        <div class="image-preview mt-2" id="preview_galeriaImagem_1" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <button type="button" id="adicionarImagem" class="btn btn-outline-success btn-sm mt-2">
+                                    <i class="fas fa-plus me-1"></i>Adicionar outra imagem à galeria
+                                </button>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Adicione imagens adicionais para a galeria (opcional)
+                                </div>
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="col-12">
+                                <label for="tags" class="form-label fw-bold">Tags</label>
+                                <input type="text" class="form-control" id="tags" name="tags" 
+                                       placeholder="futebol, campeonato, gol, esporte">
+                                <div class="form-text">Separe as tags por vírgula.</div>
+                            </div>
+
+                            <!-- Destaque -->
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="destaque" name="destaque">
+                                    <label class="form-check-label fw-bold" for="destaque">
+                                        Marcar como destaque
+                                    </label>
+                                </div>
+                                <div class="form-text">Notícias em destaque aparecem no carousel principal.</div>
+                            </div>
+
+                            <!-- Botões -->
+                            <div class="col-12 mt-4">
+                                <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                                    <button type="submit" class="btn btn-success btn-lg px-5" id="btnSubmit">
+                                        <i class="fas fa-paper-plane me-2"></i>Publicar Notícia
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary btn-lg px-5" id="btnCancelar" style="display: none;">
+                                        <i class="fas fa-times me-2"></i>Cancelar
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-warning btn-lg px-5" id="btnLimpar">
+                                        <i class="fas fa-eraser me-2"></i>Limpar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir a notícia "<strong id="tituloNoticiaExcluir"></strong>"?</p>
+                    <p class="text-danger small">Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarExcluir">Excluir Notícia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center align-items-center py-3 py-md-4 text-center">
+                <!-- Informações do Aluno -->
+                <div class="informacoes-aluno mb-3">
+                    <h5 class="mb-3">Informações do(a) Aluno(a)</h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <strong>Sobre</strong>
+                                <p class="mb-1 small">Sou um estudante apaixonado por tecnologia e desenvolvimento de
+                                    software, sempre buscando aprender novas tecnologias e criar soluções inovadoras.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-item">
+                                <p class="mb-1 small"><strong>Aluno:</strong> Guilherme Augusto Martins de Carvalho</p>
+                                <p class="mb-1 small"><strong>Curso:</strong> Engenharia de Software</p>
+                                <p class="mb-1 small"><strong>Turma:</strong> Noite</p>
+                                <div class="redes-sociais d-flex justify-content-center gap-3 mt-2">
+                                    <a href="https://instagram.com/_guimartinsc" target="_blank" class="rede-social">
+                                        <i class="fab fa-instagram fa-lg"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/guilherme-augusto-martins-de-carvalho-28010820a/"
+                                        target="_blank" class="rede-social">
+                                        <i class="fab fa-linkedin fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copyright mb-2">
+                    <p class="texto mb-0 small">© 2025 Futebol News - Projeto acadêmico</p>
+                </div>
+
+                <nav class="caixa-rodape">
+                    <ul class="d-flex flex-wrap justify-content-center list-unstyled mb-0 gap-2 gap-md-3">
+                        <li><a href="privacidade.html" class="small">Privacidade</a></li>
+                        <li><a href="termos.html" class="small">Termos</a></li>
+                        <li><a href="contatos.html" class="small">Contatos</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/app.js"></script>
+</body>
+
+</html>

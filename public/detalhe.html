@@ -5,10 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Futebol News</title>
-    <meta name="description" content="Portal de notícias sobre futebol — campeonatos, transferências e análises." />
+    <meta name="description" content="Detalhes completos da notícia sobre futebol." />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
@@ -33,82 +32,44 @@
         </div>
     </header>
 
-    <!-- Seção 1 - Destaques (Carousel dinâmico) -->
-    <section class="container my-4" id="destaquesSection">
-        <div id="destaqueCarouselContainer"></div>
-    </section>
-
     <!-- Conteúdo do site -->
     <div class="container my-3 my-md-4">
-        <div class="row g-3 g-md-4">
-            <main class="col-lg-8">
-                <!-- Seção Em Alta -->
-                <section class="em-alta p-3 p-md-4 mb-3 mb-md-4">
-                    <h2 class="h4 h2-md mb-3 mb-md-4 text-center">Em Alta</h2>
-                    <div class="row" id="emAltaContainer">
-                    </div>
-                </section>
-
-                <!-- Seção Notícias Recentes -->
-                <section class="recentes p-3 p-md-4">
-                    <h2 class="h4 h2-md mb-3 mb-md-4 text-center">Notícias Recentes</h2>
-                    <div class="row" id="recentesContainer">
-                    </div>
-                </section>
-            </main>
-
-            <!-- Barra Lateral -->
-            <aside class="col-lg-4 mt-4 mt-lg-0">
-                <div class="lateral">
-                    <div class="proximos-jogos p-3 mb-3 mb-md-4 text-center">
-                        <h3 class="h5 titulo mb-2 mb-md-3">Próximos Jogos</h3>
-                        <div class="caixa-jogo mb-2">
-                            <h4 class="h6">Flamengo x Fluminense | Amanhã • 18h</h4>
-                            <p class="campeonato mb-0">Campeonato Brasileiro</p>
+        <div class="row">
+            <main class="container my-4 detalhes-noticia">
+                <div class="card p-3">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <h2 id="pageTitle" class="titulo-destaque">Tela 2 - Detalhe do Item</h2>
                         </div>
-                        <div class="caixa-jogo mb-2">
-                            <h4 class="h6">Cruzeiro x Boca Juniors | Quarta 03/09 • 21h</h4>
-                            <p class="campeonato mb-0">Libertadores</p>
-                        </div>
-                        <div class="caixa-jogo">
-                            <h4 class="h6">Atlético x River Plate | Quarta 03/09 • 21h</h4>
-                            <p class="campeonato mb-0">Libertadores</p>
-                        </div>
-                    </div>
-
-                    <div class="transferencias p-3 mb-3 mb-md-4 text-center">
-                        <h3 class="h5 titulo mb-2 mb-md-3">Últimas Transferências</h3>
-                        <div class="caixa-transferencia mb-2">
-                            <h4 class="h6">João da Silva</h4>
-                            <p class="texto mb-0">Cruzeiro -> Liverpool<br>29/08 • 50mi $</p>
-                        </div>
-                        <div class="caixa-transferencia mb-2">
-                            <h4 class="h6">Guilherme Augusto</h4>
-                            <p class="texto mb-0">Barcelona -> Real Madrid<br>30/08 • 120mi $</p>
-                        </div>
-                        <div class="caixa-transferencia">
-                            <h4 class="h6">Natália Soares</h4>
-                            <p class="texto mb-0">Palmeiras (F) -> Chelsea (F)<br>30/08 • 20mi $</p>
-                        </div>
-                    </div>
-
-                    <div class="assinar p-3 text-center">
-                        <h3 class="h5 titulo mb-2 mb-md-3">Receba as notícias em tempo real no seu e-mail!</h3>
-                        <form action="">
-                            <div class="mb-2">
-                                <label for="email" class="form-label mb-1">E-mail:</label>
-                                <input type="email" class="form-control form-control-sm" name="email" id="email"
-                                    required>
+                        <div class="col-12 col-md-4">
+                            <img id="mainImage" src="assets/img/img1.jpg" alt="Imagem principal"
+                                class="img-fluid rounded shadow-sm">
+                            <div class="info-box-simples">
+                                <ul class="list-unstyled small">
+                                    <li><strong>Data:</strong> <span id="infoData"></span></li>
+                                    <li><strong>Autor:</strong> <span id="infoAutor"></span></li>
+                                    <li><strong>Categoria:</strong> <span id="infoCategoria"></span></li>
+                                </ul>
                             </div>
-                            <div class="mb-3">
-                                <label for="nome" class="form-label mb-1">Nome:</label>
-                                <input type="text" class="form-control form-control-sm" name="nome" id="nome" required>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <!-- Conteúdo completo da notícia -->
+                            <div id="conteudoFull" class="conteudo-lateral">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm w-100">Assinar</button>
-                        </form>
+                        </div>
+                    </div>
+
+                    <!-- Fotos do item associado (galeria) -->
+                    <hr class="my-4">
+                    <h5 class="mb-3">Galeria de Fotos</h5>
+                    <div id="galeriaContainer" class="d-flex gap-3 overflow-auto py-2">
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="index.html" class="btn voltar-btn">Voltar à Página Inicial</a>
                     </div>
                 </div>
-            </aside>
+            </main>
         </div>
     </div>
 

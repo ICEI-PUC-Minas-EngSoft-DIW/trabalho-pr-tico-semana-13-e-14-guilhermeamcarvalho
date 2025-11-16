@@ -1,18 +1,147 @@
 {
-  "usuarios": [
+  "noticias": [
     {
-      "id": "187cb7e5-e097-4224-8bc7-b610c855e2b1",
-      "login": "admin",
-      "senha": "123",
-      "nome": "Administrador do Sistema",
-      "email": "admin@abc.com"
+      "id": "1",
+      "titulo": "Craque brilha em clássico e decide partida",
+      "descricao": "Em um jogo eletrizante, o atacante marcou duas vezes e garantiu a vitória do seu time.",
+      "conteudo": "Em uma partida emocionante realizada no estádio principal, o atacante demonstrou toda sua classe e habilidade. Com dois gols marcados em momentos cruciais do jogo, o jogador foi decisivo para a vitória de sua equipe. O primeiro gol saiu aos 23 minutos do primeiro tempo, quando o atacante recebeu um lançamento na entrada da área e, com um chapeu preciso, superou o goleiro adversário. O segundo, já no segundo tempo, foi marcado de pênalti aos 41 minutos, selando o resultado final.",
+      "categoria": "Em Alta",
+      "autor": "Guilherme Augusto",
+      "data": "2025-10-12",
+      "imagem": "assets/img/noticia 1/img1.png",
+      "imagemBase64": null,
+      "galeria": [
+        "assets/img/noticia 1/img1.png",
+        "assets/img/noticia 1/img2.png",
+        "assets/img/noticia 1/img3.png"
+      ],
+      "galeriaBase64": null,
+      "tags": [
+        "futebol",
+        "clássico",
+        "gol",
+        "vitória"
+      ],
+      "destaque": true
     },
     {
-      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
-      "login": "user",
-      "senha": "123",
-      "nome": "Usuario Comum",
-      "email": "user@abc.com"
+      "id": "2",
+      "titulo": "Time anuncia novo técnico para a temporada",
+      "descricao": "Contratação surpreende a torcida; contrato de 2 anos com metas ambiciosas.",
+      "conteudo": "O clube oficializou nesta segunda-feira a contratação do novo técnico, que assume o comando da equipe principal com um contrato válido por duas temporadas. A apresentação ocorreu na sede do clube com a presença de dirigentes e da imprensa. O novo comandante chega após uma passagem bem-sucedida por um clube do exterior, onde conquistou títulos importantes e desenvolveu um trabalho reconhecido pelo mercado.",
+      "categoria": "Em Alta",
+      "autor": "Ana Souza",
+      "data": "2025-09-29",
+      "imagem": "assets/img/noticia 2/img1.png",
+      "imagemBase64": null,
+      "galeria": [
+        "assets/img/noticia 2/img1.png",
+        "assets/img/noticia 2/img2.png",
+        "assets/img/noticia 2/img3.png"
+      ],
+      "galeriaBase64": null,
+      "tags": [
+        "técnico",
+        "contratação",
+        "clube"
+      ],
+      "destaque": true
+    },
+    {
+      "id": "3",
+      "titulo": "Reforço internacional chega e promete mudanças",
+      "descricao": "Meia com experiência na Europa é o novo nome do mercado nacional.",
+      "conteudo": "O meia internacional, com vasta experiência em campeonatos europeus, desembarcou no país para reforçar o elenco do time. A contratação foi considerada uma das mais importantes da janela de transferências. O jogador, que atuou por clubes na Espanha e Itália, assinou contrato por três temporadas e já participou de seus primeiros treinos com a nova equipe.",
+      "categoria": "Em Alta",
+      "autor": "Ricardo Lima",
+      "data": "2025-09-28",
+      "imagem": "assets/img/noticia 3/img1.png",
+      "imagemBase64": null,
+      "galeria": [
+        "assets/img/noticia 3/img1.png",
+        "assets/img/noticia 3/img2.png",
+        "assets/img/noticia 3/img3.png",
+        "assets/img/noticia 3/img4.png"
+      ],
+      "galeriaBase64": null,
+      "tags": [
+        "reforço",
+        "internacional",
+        "transferência"
+      ],
+      "destaque": true
+    },
+    {
+      "id": "4",
+      "titulo": "Jovem marca no fim e sela classificação",
+      "descricao": "Base do clube segue mostrando talento nas competições nacionais.",
+      "conteudo": "Em uma virada emocionante, o jovem da base marcou nos acréscimos e garantiu a classificação de sua equipe para a próxima fase da competição. O gol saiu aos 47 minutos do segundo tempo, após uma jogada coletiva que começou na defesa. Com apenas 19 anos, o atleta é mais um produto da famosa base do clube, que tem revelado diversos talentos nos últimos anos. Esta foi sua primeira partida como titular no time principal.",
+      "categoria": "Notícias Recentes",
+      "autor": "Fernanda Torres",
+      "data": "2025-10-19",
+      "imagem": "assets/img/noticia 4/img1.png",
+      "imagemBase64": null,
+      "galeria": [
+        "assets/img/noticia 4/img1.png",
+        "assets/img/noticia 4/img2.png",
+        "assets/img/noticia 4/img3.png"
+      ],
+      "galeriaBase64": null,
+      "tags": [
+        "jovem",
+        "base",
+        "classificação",
+        "gol"
+      ],
+      "destaque": false
+    },
+    {
+      "id": "5",
+      "titulo": "Lesão preocupa comissão técnica",
+      "descricao": "Atleta sofre lesão e passa por exames; retorno estimado em semanas.",
+      "conteudo": "O atleta sofreu uma lesão muscular durante os treinos desta manhã e foi imediatamente encaminhado para exames. A primeira avaliação médica indica uma lesão grau II no músculo da coxa. De acordo com o departamento médico do clube, o jogador passará por um período de tratamento e reabilitação. O tempo estimado para retorno aos gramados é de três a quatro semanas.",
+      "categoria": "Notícias Recentes",
+      "autor": "Pedro Alves",
+      "data": "2025-10-19",
+      "imagem": "assets/img/noticia 5/img1.png",
+      "imagemBase64": null,
+      "galeria": [
+        "assets/img/noticia 5/img1.png",
+        "assets/img/noticia 5/img2.png",
+        "assets/img/noticia 5/img3.png",
+        "assets/img/noticia 5/img4.png",
+        "assets/img/noticia 5/img5.png"
+      ],
+      "galeriaBase64": null,
+      "tags": [
+        "lesão",
+        "tratamento",
+        "recuperação"
+      ],
+      "destaque": false
+    },
+    {
+      "id": "6",
+      "titulo": "Clube confirma amistoso internacional",
+      "descricao": "Partida será transmitida para vários países e serve de preparação.",
+      "conteudo": "O clube oficializou a realização de um amistoso internacional contra uma tradicional equipe europeia. A partida está marcada para o próximo mês e será disputada em território nacional. O jogo faz parte da preparação para a reta final da temporada e servirá como teste para a equipe enfrentar um estilo de futebol diferente do habitual no campeonato local.",
+      "categoria": "Notícias Recentes",
+      "autor": "Mariana Costa",
+      "data": "2025-10-19",
+      "imagem": "assets/img/noticia 6/img1.png",
+      "imagemBase64": null,
+      "galeria": [
+        "assets/img/noticia 6/img1.png",
+        "assets/img/noticia 6/img2.png",
+        "assets/img/noticia 6/img3.png"
+      ],
+      "galeriaBase64": null,
+      "tags": [
+        "amistoso",
+        "internacional",
+        "preparação"
+      ],
+      "destaque": false
     }
   ]
 }
